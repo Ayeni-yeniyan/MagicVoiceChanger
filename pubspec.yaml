@@ -1,5 +1,6 @@
 name: magic_voice
 description: A new Flutter project.
+publish_to: none
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -14,19 +15,22 @@ description: A new Flutter project.
 version: 1.0.0+2
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ^3.0.0
 
 dependencies:
   flutter:
     sdk: flutter
 
   # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
-  path: ^1.6.2
-  path_provider: ^0.5.0+1
-  flutter_file_manager: ^0.1.1
-  voice_changer_plugin: ^0.0.2
+  # Use with the CupertinoIcons class for iOS style icons.`
+  cupertino_icons: any
+  path: any
+  path_provider: any
+  file_picker: ^9.2.3
+  voice_changer_plugin:
+    git:
+      url: https://github.com/Ayeni-yeniyan/flutter_voice_changer.git
+      ref: main
 
 dev_dependencies:
   flutter_test:

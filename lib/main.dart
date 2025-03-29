@@ -1,11 +1,12 @@
 // framework
-import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 // packages
-import 'package:flutter_file_manager/flutter_file_manager.dart';
-import 'package:magic_voice/voiceChanger.dart';
-import 'package:path_provider/path_provider.dart';
+// import 'package:flutter_file_manager/flutter_file_manager.dart';
+// import 'package:magic_voice/voiceChanger.dart';
+// import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import 'package:voice_changer_plugin/voice_changer_plugin.dart';
 
@@ -31,7 +32,6 @@ class MagicVoiceChanger extends StatefulWidget {
 }
 
 class _MagicVoiceChangerState extends State<MagicVoiceChanger> {
-  
   int t = 0;
   var diTxt = "Press play button to confirm?";
 
@@ -44,31 +44,27 @@ class _MagicVoiceChangerState extends State<MagicVoiceChanger> {
             content: Text(diTxt),
             elevation: 12,
             actions: <Widget>[
-              RaisedButton(
+              ElevatedButton(
                 child: Text('Play'),
                 onPressed: () {
                   try {
-
-                      VoiceChangerPlugin.change(path, type).then((v) {
-                    Navigator.pop(context);
-                  }).catchError((err){
-                    print(err);
-                  });
-                    
+                    VoiceChangerPlugin.change(path, type).then((v) {
+                      Navigator.pop(context);
+                    }).catchError((err) {
+                      print(err);
+                    });
                   } catch (e) {
-
                     print(e);
                   }
                 },
               ),
 
-              // RaisedButton(
+              // ElevatedButton(
               //   child: Text('close'),
               //   onPressed: () {
               //     Navigator.pop(context);
               //   },
               // ),
-
             ],
           );
         });
@@ -94,7 +90,7 @@ class _MagicVoiceChangerState extends State<MagicVoiceChanger> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                RaisedButton(
+                ElevatedButton(
                   child: Text('normal'),
                   onPressed: () {
                     setState(() {
@@ -102,7 +98,7 @@ class _MagicVoiceChangerState extends State<MagicVoiceChanger> {
                     });
                   },
                 ),
-                RaisedButton(
+                ElevatedButton(
                   child: Text('lorie'),
                   onPressed: () {
                     setState(() {
@@ -110,7 +106,7 @@ class _MagicVoiceChangerState extends State<MagicVoiceChanger> {
                     });
                   },
                 ),
-                RaisedButton(
+                ElevatedButton(
                   child: Text('terror'),
                   onPressed: () {
                     setState(() {
@@ -118,7 +114,7 @@ class _MagicVoiceChangerState extends State<MagicVoiceChanger> {
                     });
                   },
                 ),
-                RaisedButton(
+                ElevatedButton(
                   child: Text('uncle'),
                   onPressed: () {
                     setState(() {
@@ -126,7 +122,7 @@ class _MagicVoiceChangerState extends State<MagicVoiceChanger> {
                     });
                   },
                 ),
-                RaisedButton(
+                ElevatedButton(
                   child: Text('funny'),
                   onPressed: () {
                     setState(() {
@@ -134,7 +130,7 @@ class _MagicVoiceChangerState extends State<MagicVoiceChanger> {
                     });
                   },
                 ),
-                RaisedButton(
+                ElevatedButton(
                   child: Text('vacant'),
                   onPressed: () {
                     setState(() {
@@ -197,8 +193,14 @@ class _MagicVoiceChangerState extends State<MagicVoiceChanger> {
   }
 
   Future _getAudioFiles() async {
-    var root = await getExternalStorageDirectory();
-    var files = await FileManager(root: root).filesTree(extensions: ["mp3"]);
-    return files;
+    // var root = await getExternalStorageDirectory();
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.media,
+      allowedExtensions: ['mp3'],
+    );
+    // var files = await FilePicker(root: root).filesTree(extensions: ["mp3"]);
+    // return files;
+    return result;
   }
 }
